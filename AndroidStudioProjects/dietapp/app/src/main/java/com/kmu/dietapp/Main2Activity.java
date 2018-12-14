@@ -1,5 +1,6 @@
 package com.kmu.dietapp;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -38,6 +39,34 @@ public class Main2Activity extends AppCompatActivity {
 
         goal_weight = (TextView)findViewById(R.id.goal_weight);
 
+
+        TextView bre_btn = (TextView) findViewById(R.id.bre_btn);
+        bre_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 액티비티 전환 코드
+                Intent intent = new Intent(getApplicationContext(), Meal.class);
+                startActivity(intent);
+            }
+        });
+        TextView lun_btn = (TextView) findViewById(R.id.lun_btn);
+        lun_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 액티비티 전환 코드
+                Intent intent = new Intent(getApplicationContext(), Meal.class);
+                startActivity(intent);
+            }
+        });
+        TextView din_btn = (TextView) findViewById(R.id.din_btn);
+        din_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 액티비티 전환 코드
+                Intent intent = new Intent(getApplicationContext(), Meal.class);
+                startActivity(intent);
+            }
+        });
 
 
     }

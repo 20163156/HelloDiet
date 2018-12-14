@@ -282,6 +282,7 @@
 
         </TableLayout>
     </LinearLayout>
+
     <Button
         android:id="@+id/bre_btn"
         android:layout_width="75dp"
