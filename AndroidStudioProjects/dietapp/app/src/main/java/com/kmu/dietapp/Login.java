@@ -36,12 +36,44 @@ public class Login extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-  
+        mydb  = new DBHelper(this);
+
+        try {
+            db = mydb.getWritableDatabase();
+        } catch (SQLiteException ex) {
+            db = mydb.getReadableDatabase();
+        }
+
+        edit_id = (EditText) findViewById(R.id.idText);
+        edit_pd = (EditText) findViewById(R.id.idPassword);
+
 
 
     }
 
+    public void login(View target) {
+        String ed_id = edit_id.getText().toString();
+        String ed_pd = edit_pd.getText().toString();
 
+        Cursor cursor;
+        cursor = db.rawQuery("SELECT * FROM clients WHERE id='"
+                + ed_id + "'AND password='"+ed_pd+"';", null);
+
+        if(cursor.getCount() > 0){
+            Toast.makeText(getApplicationContext(), "로그인에 성공했습니다.",
+                    Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(intent);
+
+        }
+        else{
+            Toast.makeText(getApplicationContext(), "로그인에 실패했습니다.",
+                    Toast.LENGTH_SHORT).show();
+        }
+
+
+
+    }
 
 
 
