@@ -19,7 +19,8 @@
         <activity android:name=".Main2Activity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".Register" />
-        <activity android:name=".Meal"></activity>
+        <activity android:name=".Meal" />
+        <activity android:name=".Note"></activity>
     </application>
 
 </manifest>
