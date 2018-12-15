@@ -47,13 +47,13 @@
         android:textColor="#000000" />
 
     <TextView
-        android:id="@+id/fat"
+        android:id="@+id/height"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/imageButton5"
         android:layout_below="@+id/body"
-        android:layout_toEndOf="@+id/edit_weight"
-        android:textColor="#000000"
-        android:text="체지방량" />
+        android:text="키(cm)"
+        android:textColor="#000000" />
 
 
     <TextView
@@ -139,9 +139,8 @@
         android:id="@+id/edit_weight"
         android:layout_width="84dp"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/line1"
+        android:layout_below="@+id/my_toolbar"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="-11dp"
         android:ems="10"
         android:inputType="textPersonName" />
 
@@ -156,11 +155,11 @@
         android:inputType="number" />
 
     <EditText
-        android:id="@+id/edit_fat"
+        android:id="@+id/edit_hei"
         android:layout_width="77dp"
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/goal"
-        android:layout_toEndOf="@+id/fat"
+        android:layout_toEndOf="@+id/height"
         android:ems="10"
         android:inputType="number" />
 
@@ -188,7 +187,7 @@
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:progress="50"
+        android:progress="0"
         android:layout_above="@+id/cal"
         android:layout_marginBottom="-184dp"
         android:layout_toEndOf="@+id/goal" />
@@ -200,7 +199,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/cal"
         android:layout_toEndOf="@+id/goal"
-        android:progress="30" />
+        android:progress="0" />
 
     <LinearLayout
         android:layout_width="284dp"
@@ -281,9 +280,10 @@
         android:id="@+id/bre_btn"
         android:layout_width="75dp"
         android:layout_height="76dp"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
-        android:layout_alignTop="@+id/lun_btn"
-        android:layout_marginStart="39dp"
+        android:layout_marginBottom="183dp"
+        android:layout_marginStart="40dp"
         android:background="@drawable/circle_btn"
         android:text="kcal" />
 
@@ -292,9 +292,8 @@
         android:layout_width="75dp"
         android:layout_height="76dp"
 
-        android:layout_alignParentBottom="true"
+        android:layout_alignTop="@+id/bre_btn"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="148dp"
         android:background="@drawable/circle_btn"
         android:text="kcal" />
 
@@ -315,10 +314,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="111dp"
+        android:layout_marginBottom="144dp"
         android:layout_toEndOf="@+id/body"
-        android:textStyle="bold"
-        android:text="아침" />
+        android:text="아침"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/textView2"
@@ -347,14 +346,14 @@
         android:layout_height="71dp"
         android:layout_alignParentBottom="true"
         android:layout_alignStart="@+id/body"
-        android:layout_marginBottom="26dp"
+        android:layout_marginBottom="58dp"
         app:srcCompat="@drawable/aa" />
 
     <ImageButton
         android:id="@+id/imageButton2"
         android:layout_width="wrap_content"
         android:layout_height="74dp"
-        android:layout_alignEnd="@+id/edit_fat"
+        android:layout_alignEnd="@+id/edit_hei"
         android:layout_alignTop="@+id/imageButton5"
         android:layout_marginEnd="0dp"
         android:background="#ffffff"
@@ -366,7 +365,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignStart="@+id/bre_btn"
-        android:layout_marginBottom="48dp"
+        android:layout_marginBottom="78dp"
         android:text="배변활동 및 노트"
         android:textColor="#000000"
         android:textSize="20dp" />
@@ -383,9 +382,8 @@
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/fat"
         android:layout_below="@+id/my_toolbar"
-        android:layout_marginTop="0dp"
-        android:text="앞으로"
-        android:onClick="forward"/>
+        android:layout_toStartOf="@+id/goal_weight"
+        android:onClick="forward"
+        android:text="앞으로" />
 </RelativeLayout>
