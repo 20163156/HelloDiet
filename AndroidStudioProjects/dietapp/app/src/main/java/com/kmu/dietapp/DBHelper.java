@@ -20,6 +20,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE clients ( _id INTEGER PRIMARY KEY" +
                 " AUTOINCREMENT, id TEXT, password TEXT,email TEXT);");
+
     }
 
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
