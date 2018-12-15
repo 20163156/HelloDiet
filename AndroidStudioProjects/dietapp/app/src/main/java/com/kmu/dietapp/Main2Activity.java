@@ -97,6 +97,7 @@ public class Main2Activity extends AppCompatActivity {
         super.onResume();
 
         String str_hei = height.getText().toString();
+
         if(str_hei.length() > 0 && cnt == 1){
 
             num_hei = Integer.parseInt(str_hei);
@@ -113,6 +114,7 @@ public class Main2Activity extends AppCompatActivity {
             proBar.setProgress((int)(eat_cal*100));
 
         }
+
         if(cnt > 1){
             add_kcal = Double.parseDouble(resultKcal);
             eat_cal  += add_kcal;
@@ -132,7 +134,7 @@ public class Main2Activity extends AppCompatActivity {
             switch (requestCode){
                 case 3000:
                     resultKcal=(data.getStringExtra("result"));
-                    if(resultKcal.length() == 0){resultKcal="0";}
+                    //if(resultKcal.length() == 0){resultKcal="0";}
                     break;
             }
         }

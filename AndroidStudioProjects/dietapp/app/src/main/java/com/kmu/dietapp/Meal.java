@@ -80,19 +80,22 @@ public class Meal extends AppCompatActivity {
 
     public void register(View target){
 
-
-        String str = edit_incal.getText().toString();
-        kcal = str;
-        Toast.makeText(getApplicationContext(), "메뉴가 추가되었습33니다."+str,
-                Toast.LENGTH_SHORT).show();
+//        String str = edit_incal.getText().toString();
+//        kcal = str;
+//        Toast.makeText(getApplicationContext(), "메뉴가 추가되었습니다.",
+//                Toast.LENGTH_SHORT).show();
 
         if(cb.isChecked())
         {
             Toast.makeText(getApplicationContext(), "메뉴가 추가되었습니다.",
                     Toast.LENGTH_SHORT).show();
 
+        }else{
+            String str = edit_incal.getText().toString();
+            kcal = str;
+            Toast.makeText(getApplicationContext(), "메뉴가 추가되었습니다.",
+                    Toast.LENGTH_SHORT).show();
         }
-
 
         Intent resultIntent = new Intent();
         resultIntent.putExtra("result",kcal);
