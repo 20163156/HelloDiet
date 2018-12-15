@@ -93,7 +93,7 @@ public class Meal extends AppCompatActivity {
         }else{
             String str = edit_incal.getText().toString();
             kcal = str;
-            Toast.makeText(getApplicationContext(), "메뉴가 추가되었습니다.",
+            Toast.makeText(getApplicationContext(), "칼로리가 추가되었습니다.",
                     Toast.LENGTH_SHORT).show();
         }
 

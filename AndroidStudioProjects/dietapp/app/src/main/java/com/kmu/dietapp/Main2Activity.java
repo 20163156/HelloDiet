@@ -1,9 +1,12 @@
 package com.kmu.dietapp;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -15,13 +18,25 @@ import android.view.View;
 
 import java.util.TooManyListenersException;
 
+class myGlobals{
+    public static double eat_cal;
 
+    static double get_cal(){
+        return eat_cal;
+    }
+    static void set_cal(double eat_cal){
+        myGlobals.eat_cal = eat_cal;
+
+    }
+
+
+}
 public class Main2Activity extends AppCompatActivity {
     Toolbar myToolbar;
     EditText weight ,goal;
     TextView goal_weight,height;
     int num_weight,num_goal,sub,num_hei;
-    double rec_cal,eat_cal,add_kcal;
+    double rec_cal,add_kcal;
     String resultKcal;
     int cnt;
 
@@ -86,6 +101,9 @@ public class Main2Activity extends AppCompatActivity {
         });
 
 
+
+
+
     }
 
     public void onSaveInstanceState(Bundle outState) {
@@ -93,39 +111,43 @@ public class Main2Activity extends AppCompatActivity {
 
     }
 
+
     public void onResume() {
         super.onResume();
+        double eat_kcal;
 
         String str_hei = height.getText().toString();
+        eat_kcal = myGlobals.get_cal();
 
         if(str_hei.length() > 0 && cnt == 1){
 
             num_hei = Integer.parseInt(str_hei);
 
-
             rec_cal=((double)(num_hei/100.0)*(double)(num_hei/100.0)*20.0)*25.0;
             add_kcal = Double.parseDouble(resultKcal);
-            eat_cal  +=  add_kcal;
-            eat_cal = eat_cal/rec_cal;
-            Toast.makeText(getApplicationContext(), "메뉴가 추가되었습니다."+add_kcal,
-                    Toast.LENGTH_SHORT).show();
+            eat_kcal  = eat_kcal + add_kcal;
+            myGlobals.set_cal(eat_kcal);
+
+            eat_kcal = eat_kcal/rec_cal;
 
             ProgressBar proBar = (ProgressBar)findViewById(R.id.food_pro);
-            proBar.setProgress((int)(eat_cal*100));
+            proBar.setProgress((int)(eat_kcal*100));
 
         }
 
         if(cnt > 1){
-            add_kcal = Double.parseDouble(resultKcal);
-            eat_cal  += add_kcal;
-            eat_cal = eat_cal/rec_cal;
+            eat_kcal = myGlobals.get_cal();
 
-            Toast.makeText(getApplicationContext(), "메뉴가 추가되었습니다.",
-                    Toast.LENGTH_SHORT).show();
+            add_kcal = Double.parseDouble(resultKcal);
+            eat_kcal  = eat_kcal + add_kcal;
+            myGlobals.set_cal(eat_kcal);
+
+            eat_kcal = eat_kcal/rec_cal;
 
             ProgressBar proBar = (ProgressBar)findViewById(R.id.food_pro);
-            proBar.setProgress((int)(eat_cal*100));
+            proBar.setProgress((int)(eat_kcal*100));
         }
+
 
 
     }
@@ -134,7 +156,6 @@ public class Main2Activity extends AppCompatActivity {
             switch (requestCode){
                 case 3000:
                     resultKcal=(data.getStringExtra("result"));
-                    //if(resultKcal.length() == 0){resultKcal="0";}
                     break;
             }
         }
