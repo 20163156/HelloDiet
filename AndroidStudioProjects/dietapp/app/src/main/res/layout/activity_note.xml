@@ -6,4 +6,14 @@
     android:layout_height="match_parent"
     tools:context=".Note">
 
+    <EditText
+        android:id="@+id/note"
+        android:layout_width="363dp"
+        android:layout_height="463dp"
+        android:ems="10"
+        android:hint="내용을 입력해주세요.\n-변화되는 나의 몸매를 기록해 보세요."
+        android:inputType="textPersonName"
+        android:text=""
+        tools:layout_editor_absoluteX="11dp"
+        tools:layout_editor_absoluteY="0dp" />
 </android.support.constraint.ConstraintLayout>

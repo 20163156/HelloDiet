@@ -101,9 +101,6 @@ public class Main2Activity extends AppCompatActivity {
         });
 
 
-
-
-
     }
 
     public void onSaveInstanceState(Bundle outState) {
@@ -203,4 +200,11 @@ public class Main2Activity extends AppCompatActivity {
 
         }
     }
+
+    public void changeActivity(View view){
+        Intent intent = new Intent(Main2Activity.this, Note.class);
+        startActivity(intent);
+    }
+
+
 }

@@ -21,6 +21,10 @@
         <activity android:name=".Register" />
         <activity android:name=".Meal" />
         <activity android:name=".Note"></activity>
+
+
+
+
     </application>
 
 </manifest>
