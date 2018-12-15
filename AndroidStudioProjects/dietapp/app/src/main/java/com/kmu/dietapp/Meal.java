@@ -30,7 +30,7 @@ public class Meal extends AppCompatActivity {
     public CheckBox cb;
     SQLiteDatabase db;
     public int result;
-    EditText edit_foodName,edit_infokcal;
+    EditText edit_foodName,edit_infokcal,edit_incal;
     public String kcal;
 
 
@@ -49,6 +49,8 @@ public class Meal extends AppCompatActivity {
 
         edit_foodName = (EditText) findViewById(R.id.edit_foodName);
         edit_infokcal = (EditText) findViewById(R.id.info_kcal);
+        edit_incal = findViewById(R.id.edit_incal);
+
         cb = (CheckBox)findViewById(R.id.checkBox);
 
     }
@@ -78,6 +80,12 @@ public class Meal extends AppCompatActivity {
 
     public void register(View target){
 
+
+        String str = edit_incal.getText().toString();
+        kcal = str;
+        Toast.makeText(getApplicationContext(), "메뉴가 추가되었습33니다."+str,
+                Toast.LENGTH_SHORT).show();
+
         if(cb.isChecked())
         {
             Toast.makeText(getApplicationContext(), "메뉴가 추가되었습니다.",
@@ -85,11 +93,11 @@ public class Meal extends AppCompatActivity {
 
         }
 
+
         Intent resultIntent = new Intent();
         resultIntent.putExtra("result",kcal);
         setResult(RESULT_OK,resultIntent);
         finish();
-
 
 
 

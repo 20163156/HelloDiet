@@ -9,6 +9,7 @@ public class DBHelper2 extends SQLiteOpenHelper {
     public static final String CAL_COLUMN_ID = "id";
     public static final String CAL_COLUMN_FOOD = "foodname";
     public static final String CAL_COLUMN_KCAL = "kcal";
+
     private static final int DATABASE_VERSION = 2;
     public DBHelper2(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);

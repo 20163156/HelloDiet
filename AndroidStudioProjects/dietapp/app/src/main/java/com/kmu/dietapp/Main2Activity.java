@@ -74,6 +74,17 @@ public class Main2Activity extends AppCompatActivity {
             }
         });
 
+        TextView save_btn  = (TextView) findViewById(R.id.save_btn);
+        save_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 액티비티 전환 코드
+
+                Intent intent = new Intent(Main2Activity.this, MainActivity.class);
+                startActivityForResult(intent, 3000);
+            }
+        });
+
 
     }
 
@@ -95,7 +106,7 @@ public class Main2Activity extends AppCompatActivity {
             add_kcal = Double.parseDouble(resultKcal);
             eat_cal  +=  add_kcal;
             eat_cal = eat_cal/rec_cal;
-            Toast.makeText(getApplicationContext(), "메뉴가 추가되었습니다."+eat_cal,
+            Toast.makeText(getApplicationContext(), "메뉴가 추가되었습니다."+add_kcal,
                     Toast.LENGTH_SHORT).show();
 
             ProgressBar proBar = (ProgressBar)findViewById(R.id.food_pro);
@@ -103,14 +114,11 @@ public class Main2Activity extends AppCompatActivity {
 
         }
         if(cnt > 1){
-            Toast.makeText(getApplicationContext(), "원래 칼로리는? ."+eat_cal,
-                    Toast.LENGTH_SHORT).show();
-
             add_kcal = Double.parseDouble(resultKcal);
             eat_cal  += add_kcal;
             eat_cal = eat_cal/rec_cal;
 
-            Toast.makeText(getApplicationContext(), "메뉴가 추가되었습니다."+eat_cal,
+            Toast.makeText(getApplicationContext(), "메뉴가 추가되었습니다.",
                     Toast.LENGTH_SHORT).show();
 
             ProgressBar proBar = (ProgressBar)findViewById(R.id.food_pro);
@@ -124,6 +132,7 @@ public class Main2Activity extends AppCompatActivity {
             switch (requestCode){
                 case 3000:
                     resultKcal=(data.getStringExtra("result"));
+                    if(resultKcal.length() == 0){resultKcal="0";}
                     break;
             }
         }

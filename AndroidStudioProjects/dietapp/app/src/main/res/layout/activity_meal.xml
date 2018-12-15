@@ -71,14 +71,14 @@
         android:textStyle="bold" />
 
     <EditText
-        android:id="@+id/textView4"
+        android:id="@+id/edit_incal"
         android:layout_width="351dp"
         android:layout_height="59dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="178dp"
         android:hint="칼로리를 입력하세요."
-        android:text="" />
+         />
 
     <EditText
         android:id="@+id/info_kcal"
