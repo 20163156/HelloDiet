@@ -97,15 +97,23 @@ public class Main2Activity extends AppCompatActivity {
             }
         });
 
-        TextView save_btn  = (TextView) findViewById(R.id.save_btn);
-        save_btn.setOnClickListener(new View.OnClickListener() {
+//         TextView save_btn  = (TextView) findViewById(R.id.save_btn);
+//        save_btn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(Main2Activity.this, MainActivity.class);
+//                startActivityForResult(intent, 3000);
+//            }
+//        });
+
+        TextView pedo_btn  = (TextView) findViewById(R.id.pedo_btn);
+        pedo_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Main2Activity.this, MainActivity.class);
-                startActivityForResult(intent, 3000);
+                Intent intent = new Intent(Main2Activity.this, Pedometer.class);
+                startActivity(intent);
             }
         });
-
 
     }
 
