@@ -56,12 +56,14 @@ public class Meal extends AppCompatActivity {
     }
 
     public void search(View target) {
-        String ed_foodName = edit_foodName.getText().toString();
+        //음식을 입력받아서 디비에 접근해서 입력받은 음식에 해당하는 칼로리 출력하기
 
+        String ed_foodName = edit_foodName.getText().toString();
         Cursor cursor;
         cursor = db.rawQuery("SELECT * FROM calories WHERE foodname='"
                 + ed_foodName + "';", null);
 
+        //디비에 메뉴가 존재 할 경우 몇칼로리인지 표시 해주기
         if(cursor.getCount() > 0){
             cursor.moveToFirst();
             Toast.makeText(getApplicationContext(), "메뉴가 존재합니다.",
@@ -80,11 +82,7 @@ public class Meal extends AppCompatActivity {
 
     public void register(View target){
 
-//        String str = edit_incal.getText().toString();
-//        kcal = str;
-//        Toast.makeText(getApplicationContext(), "메뉴가 추가되었습니다.",
-//                Toast.LENGTH_SHORT).show();
-
+        //추가 버튼이 클릭 되었으면 등록버튼을 눌렀을때 실행
         if(cb.isChecked())
         {
             Toast.makeText(getApplicationContext(), "메뉴가 추가되었습니다.",

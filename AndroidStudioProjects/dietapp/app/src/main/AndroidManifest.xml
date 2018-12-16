@@ -20,11 +20,8 @@
         <activity android:name=".MainActivity" />
         <activity android:name=".Register" />
         <activity android:name=".Meal" />
-        <activity android:name=".Note"></activity>
-
-
-
-
+        <activity android:name=".Note" />
+        <activity android:name=".Pedometer"></activity>
     </application>
 
 </manifest>

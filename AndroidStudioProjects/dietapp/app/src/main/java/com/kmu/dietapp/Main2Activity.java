@@ -20,6 +20,15 @@ import java.util.TooManyListenersException;
 
 class myGlobals{
     public static double eat_cal;
+//    public static double weight;
+////
+////    static double get_weight(){
+////        return weight;
+////    }
+////    static void set_weight(double weight){
+////        myGlobals.weight = eat_cal;
+////
+////    }
 
     static double get_cal(){
         return eat_cal;
@@ -51,16 +60,17 @@ public class Main2Activity extends AppCompatActivity {
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_dehaze_black_24dp);
         getSupportActionBar().setTitle("다이어리");  //해당 액티비티의 툴바에 있는 타이틀을 공백으로 처리
 
+
         weight = (EditText) findViewById(R.id.edit_weight);
         goal = (EditText) findViewById(R.id.edit_goal);
         goal_weight = (TextView)findViewById(R.id.goal_weight);
         height = (TextView)findViewById(R.id.edit_hei);
 
+        //액티비티 전환 코드
         TextView bre_btn = (TextView) findViewById(R.id.bre_btn);
         bre_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // 액티비티 전환 코드
                 cnt++;
                 Intent intent = new Intent(Main2Activity.this, Meal.class);
                 startActivityForResult(intent, 3000);
@@ -81,9 +91,7 @@ public class Main2Activity extends AppCompatActivity {
         din_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // 액티비티 전환 코드
                 cnt++;
-
                 Intent intent = new Intent(Main2Activity.this, Meal.class);
                 startActivityForResult(intent, 3000);
             }
@@ -93,8 +101,6 @@ public class Main2Activity extends AppCompatActivity {
         save_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // 액티비티 전환 코드
-
                 Intent intent = new Intent(Main2Activity.this, MainActivity.class);
                 startActivityForResult(intent, 3000);
             }
@@ -108,25 +114,35 @@ public class Main2Activity extends AppCompatActivity {
 
     }
 
-
+    //다른 액티비티를 호출했다가 다시 메인을 호출했을때 실행되는 메소드
     public void onResume() {
         super.onResume();
         double eat_kcal;
 
         String str_hei = height.getText().toString();
+
+        //하루동안 먹은 양은 전역변수로 관리해야 함
         eat_kcal = myGlobals.get_cal();
 
+        //키가 입력이 되었고 칼로리가 첫번째 입력이라면
         if(str_hei.length() > 0 && cnt == 1){
 
             num_hei = Integer.parseInt(str_hei);
 
+            //권장 칼로리 계산
             rec_cal=((double)(num_hei/100.0)*(double)(num_hei/100.0)*20.0)*25.0;
+
+            //Meal.class에서 가져온 음식 칼로리 가져와서 추가해주기
             add_kcal = Double.parseDouble(resultKcal);
             eat_kcal  = eat_kcal + add_kcal;
+
+            //값을 변경했으니 다시 저장하기
             myGlobals.set_cal(eat_kcal);
 
-            eat_kcal = eat_kcal/rec_cal;
+            //prograssbar로 업데이트 해주기
+            //(계산:)오늘 먹어야하는칼로리 / 오늘 먹은칼로리
 
+            eat_kcal = eat_kcal/rec_cal;
             ProgressBar proBar = (ProgressBar)findViewById(R.id.food_pro);
             proBar.setProgress((int)(eat_kcal*100));
 
