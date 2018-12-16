@@ -1,5 +1,6 @@
 package com.kmu.dietapp;
 
+import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -83,5 +84,12 @@ public class Pedometer extends AppCompatActivity {
         stepsTextView.setText(String.valueOf(steps));
     }
 
+    public void update(View target){
+        Intent resultIntent = new Intent();
+        resultIntent.putExtra("result",String.valueOf(steps));
+        setResult(RESULT_OK,resultIntent);
+        finish();
+
+    }
 
 }

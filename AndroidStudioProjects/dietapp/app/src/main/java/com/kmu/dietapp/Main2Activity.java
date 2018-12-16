@@ -35,9 +35,9 @@ public class Main2Activity extends AppCompatActivity {
     Toolbar myToolbar;
     EditText weight ,goal;
     TextView goal_weight,height;
-    int num_weight,num_goal,sub,num_hei,cnt;
+    int num_weight,num_goal,sub,num_hei,cnt,cnt2;
     double rec_cal,add_kcal;
-    String resultKcal;
+    String resultKcal,exercise;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,8 +110,9 @@ public class Main2Activity extends AppCompatActivity {
         pedo_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                cnt2++;
                 Intent intent = new Intent(Main2Activity.this,Pedometer.class);
-                startActivity(intent);
+                startActivityForResult(intent, 3001);
             }
         });
 
@@ -175,6 +176,7 @@ public class Main2Activity extends AppCompatActivity {
             //권장 칼로리 계산
             rec_cal=((double)(num_hei/100.0)*(double)(num_hei/100.0)*20.0)*25.0;
 
+
             //Meal.class에서 가져온 음식 칼로리 가져와서 추가해주기
             add_kcal = Double.parseDouble(resultKcal);
             eat_kcal  = eat_kcal + add_kcal;
@@ -187,6 +189,7 @@ public class Main2Activity extends AppCompatActivity {
 
             eat_kcal = eat_kcal/rec_cal;
             ProgressBar proBar = (ProgressBar)findViewById(R.id.food_pro);
+
             proBar.setProgress((int)(eat_kcal*100));
 
         }
@@ -202,8 +205,17 @@ public class Main2Activity extends AppCompatActivity {
 
             ProgressBar proBar = (ProgressBar)findViewById(R.id.food_pro);
             proBar.setProgress((int)(eat_kcal*100));
+
+
         }
 
+        if(cnt2 > 0) {
+            if(exercise==null){exercise = "0";}
+
+            ProgressBar proBar2 = (ProgressBar)findViewById(R.id.exer_pro);
+            proBar2.setProgress(Integer.parseInt(exercise));
+
+        }
 
 
     }
@@ -213,6 +225,11 @@ public class Main2Activity extends AppCompatActivity {
                 case 3000:
                     resultKcal=(data.getStringExtra("result"));
                     break;
+
+                case 3001:
+                    exercise = (data.getStringExtra("result"));
+                    break;
+
             }
         }
 
