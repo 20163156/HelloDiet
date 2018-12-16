@@ -41,13 +41,13 @@ class myGlobals{
 
 }
 public class Main2Activity extends AppCompatActivity {
+    public static final String KEY_MY_PREFERENCE = "my_preference";
     Toolbar myToolbar;
     EditText weight ,goal;
     TextView goal_weight,height;
-    int num_weight,num_goal,sub,num_hei;
+    int num_weight,num_goal,sub,num_hei,cnt;
     double rec_cal,add_kcal;
     String resultKcal;
-    int cnt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +65,30 @@ public class Main2Activity extends AppCompatActivity {
         goal = (EditText) findViewById(R.id.edit_goal);
         goal_weight = (TextView)findViewById(R.id.goal_weight);
         height = (TextView)findViewById(R.id.edit_hei);
+
+        //간단한 변수들 공유하기 위해 sharedpreferences사용
+        // 첫번째 인자는 키, 두번째 인자는 키에 대한 데이터가 존재하지 않을 경우의 디폴트값
+
+        SharedPreferences prefs_weight = getSharedPreferences("pref_weight", MODE_PRIVATE);
+        String text = prefs_weight.getString(KEY_MY_PREFERENCE, "");
+
+        final EditText edit1 = (EditText) findViewById(R.id.edit_weight);
+        edit1.setText(text);
+
+
+        SharedPreferences prefs_height = getSharedPreferences("pref_height", MODE_PRIVATE);
+        String text2 = prefs_weight.getString(KEY_MY_PREFERENCE, "");
+
+        final EditText edit2 = (EditText) findViewById(R.id.edit_hei);
+        edit1.setText(text2);
+
+
+        SharedPreferences prefs_goal = getSharedPreferences("pref_goal", MODE_PRIVATE);
+        String text3 = prefs_weight.getString(KEY_MY_PREFERENCE, "");
+
+        final EditText edit3 = (EditText) findViewById(R.id.edit_goal);
+        edit1.setText(text3);
+
 
         //액티비티 전환 코드
         TextView bre_btn = (TextView) findViewById(R.id.bre_btn);
@@ -97,15 +121,6 @@ public class Main2Activity extends AppCompatActivity {
             }
         });
 
-//         TextView save_btn  = (TextView) findViewById(R.id.save_btn);
-//        save_btn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(Main2Activity.this, MainActivity.class);
-//                startActivityForResult(intent, 3000);
-//            }
-//        });
-
         TextView pedo_btn  = (TextView) findViewById(R.id.pedo_btn);
         pedo_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -116,6 +131,41 @@ public class Main2Activity extends AppCompatActivity {
         });
 
     }
+    protected void onStop() {
+
+        super.onStop();
+        EditText editText1 = (EditText) findViewById(R.id.edit_weight);
+        String text1 = editText1.getText().toString();
+        // 데이타를저장합니다.
+        SharedPreferences pref_weight = getSharedPreferences("pref_weight", MODE_PRIVATE);
+        SharedPreferences.Editor editor1 = pref_weight.edit();
+        editor1.putString(KEY_MY_PREFERENCE, text1);
+
+
+        EditText editText2 = (EditText) findViewById(R.id.edit_weight);
+        String text2 = editText2.getText().toString();
+        // 데이타를저장합니다.
+        SharedPreferences pref_height = getSharedPreferences("pref_height", MODE_PRIVATE);
+        SharedPreferences.Editor editor2 = pref_height.edit();
+        editor1.putString(KEY_MY_PREFERENCE, text2);
+
+
+        EditText editText3 = (EditText) findViewById(R.id.edit_goal);
+        String text3 = editText3.getText().toString();
+        // 데이타를저장합니다.
+        SharedPreferences pref_goal = getSharedPreferences("pref_goal", MODE_PRIVATE);
+        SharedPreferences.Editor editor3 = pref_goal.edit();
+        editor3.putString(KEY_MY_PREFERENCE, text3);
+
+
+
+        editor1.commit();
+        editor2.commit();
+        editor3.commit();
+
+
+    }
+
 
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
