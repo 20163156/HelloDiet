@@ -3,6 +3,9 @@ package com.kmu.dietapp;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -19,7 +22,10 @@ import android.view.View;
 import java.util.TooManyListenersException;
 
 class myGlobals{
+
     public static double eat_cal;
+    public static int cnt3;
+
     static double get_cal(){
         return eat_cal;
     }
@@ -27,6 +33,8 @@ class myGlobals{
         myGlobals.eat_cal = eat_cal;
 
     }
+    static int get_cnt(){return cnt3;}
+    static void set_cnt(int cnt3){myGlobals.cnt3 = cnt3;}
 
 
 }
@@ -35,14 +43,33 @@ public class Main2Activity extends AppCompatActivity {
     Toolbar myToolbar;
     EditText weight ,goal;
     TextView goal_weight,height;
-    int num_weight,num_goal,sub,num_hei,cnt,cnt2;
+    int num_weight,num_goal,sub,num_hei,cnt,cnt2,cnt3;
     double rec_cal,add_kcal;
-    String resultKcal,exercise;
+    String resultKcal,exercise,dates;
+
+    private DBHelper3 mydb;
+    SQLiteDatabase db;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
+
+        mydb  = new DBHelper3(this);
+
+        try {
+            db = mydb.getWritableDatabase();
+        } catch (SQLiteException ex) {
+            db = mydb.getReadableDatabase();
+        }
+
+        Intent intent = getIntent();
+        dates = intent.getStringExtra("Date");
+
+
+        db.execSQL("INSERT INTO dates VALUES (null, '" + dates + "','"+"0"+"');");
+
 
         myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
@@ -116,10 +143,23 @@ public class Main2Activity extends AppCompatActivity {
             }
         });
 
+        TextView save_btn  = (TextView) findViewById(R.id.save_btn);
+        save_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cnt3 = myGlobals.get_cnt();
+                cnt3++;
+                myGlobals.set_cnt(cnt3);
+                Intent intent = new Intent(Main2Activity.this,MainActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
     protected void onStop() {
 
         super.onStop();
+        Toast.makeText(getApplicationContext(), "onstop", Toast.LENGTH_LONG).show();
 
         EditText editText1 = (EditText) findViewById(R.id.edit_weight);
         String text1 = editText1.getText().toString();
@@ -150,6 +190,8 @@ public class Main2Activity extends AppCompatActivity {
         editor3.commit();
 
 
+
+
     }
 
 
@@ -162,63 +204,165 @@ public class Main2Activity extends AppCompatActivity {
     public void onResume() {
         super.onResume();
         double eat_kcal;
-
+        //Toast.makeText(getApplicationContext(), "Onresume", Toast.LENGTH_LONG).show();
         String str_hei = height.getText().toString();
 
-        //하루동안 먹은 양은 전역변수로 관리해야 함
-        eat_kcal = myGlobals.get_cal();
+        Cursor cursor;
+        cursor = db.rawQuery("SELECT * FROM dates WHERE date='"
+                + dates + "';", null);
+       // Toast.makeText(getApplicationContext(), "날짜는"+cursor.getCount(), Toast.LENGTH_LONG).show();
+        cursor.moveToFirst();
 
-        //키가 입력이 되었고 칼로리가 첫번째 입력이라면
-        if(str_hei.length() > 0 && cnt == 1){
-
-            num_hei = Integer.parseInt(str_hei);
-
-            //권장 칼로리 계산
-            rec_cal=((double)(num_hei/100.0)*(double)(num_hei/100.0)*20.0)*25.0;
-
-
-            //Meal.class에서 가져온 음식 칼로리 가져와서 추가해주기
-            add_kcal = Double.parseDouble(resultKcal);
-            eat_kcal  = eat_kcal + add_kcal;
-
-            //값을 변경했으니 다시 저장하기
-            myGlobals.set_cal(eat_kcal);
-
-            //prograssbar로 업데이트 해주기
-            //(계산:)오늘 먹어야하는칼로리 / 오늘 먹은칼로리
-
-            eat_kcal = eat_kcal/rec_cal;
-            ProgressBar proBar = (ProgressBar)findViewById(R.id.food_pro);
-
-            proBar.setProgress((int)(eat_kcal*100));
-
-        }
-
-        if(cnt > 1){
-            eat_kcal = myGlobals.get_cal();
-
-            add_kcal = Double.parseDouble(resultKcal);
-            eat_kcal  = eat_kcal + add_kcal;
-            myGlobals.set_cal(eat_kcal);
-
-            eat_kcal = eat_kcal/rec_cal;
+        if(cursor.getCount()>0){
 
             ProgressBar proBar = (ProgressBar)findViewById(R.id.food_pro);
-            proBar.setProgress((int)(eat_kcal*100));
+            cnt3 = myGlobals.get_cnt();
 
+            //Toast.makeText(getApplicationContext(), "cnt"+cnt+"cnt3"+cnt3, Toast.LENGTH_LONG).show();
+
+            //밥 호출 // 저장안함
+            if(str_hei.length() > 0 && cnt == 1 && cnt3 == 0){
+
+                num_hei = Integer.parseInt(str_hei);
+
+                //권장 칼로리 계산
+                rec_cal=((double)(num_hei/100.0)*(double)(num_hei/100.0)*20.0)*25.0;
+
+                //초기 세팅
+               // eat_kcal = myGlobals.get_cal();
+                eat_kcal = Double.parseDouble(cursor.getString(cursor.getColumnIndex(DBHelper3.CAL_COLUMN_KCAL)));
+
+                myGlobals.set_cal(eat_kcal);
+                eat_kcal = eat_kcal/rec_cal;
+                proBar.setProgress((int)(eat_kcal*100));
+
+                //Toast.makeText(getApplicationContext(), "칼롤린3"+String.valueOf((int)eat_kcal), Toast.LENGTH_LONG).show();
+
+                //Meal.class에서 가져온 음식 칼로리 가져와서 추가해주기
+                add_kcal = Double.parseDouble(resultKcal);
+                eat_kcal  = eat_kcal + add_kcal;
+
+                //값을 변경했으니 다시 저장하기
+                myGlobals.set_cal(eat_kcal);
+                //Toast.makeText(getApplicationContext(), "칼롤린4"+String.valueOf((int)eat_kcal), Toast.LENGTH_LONG).show();
+
+                String sql = "UPDATE dates SET kcal="+eat_kcal+" WHERE date="+dates+"";
+                db.execSQL(sql);
+
+
+                //prograssbar로 업데이트 해주기
+                //(계산:)오늘 먹어야하는칼로리 / 오늘 먹은칼로리
+
+                eat_kcal = eat_kcal/rec_cal;
+                proBar.setProgress((int)(eat_kcal*100));
+
+            }
+
+            //밥호출햇고 //
+
+            if(cnt > 1){
+                eat_kcal = Double.parseDouble(cursor.getString(cursor.getColumnIndex(DBHelper3.CAL_COLUMN_KCAL)));
+               // Toast.makeText(getApplicationContext(), "칼롤린5"+String.valueOf((int)eat_kcal), Toast.LENGTH_LONG).show();
+
+                myGlobals.set_cal(eat_kcal);
+                eat_kcal = eat_kcal/rec_cal;
+                proBar.setProgress((int)(eat_kcal*100));
+
+                add_kcal = Double.parseDouble(resultKcal);
+                eat_kcal  = eat_kcal + add_kcal;
+                myGlobals.set_cal(eat_kcal);
+
+                eat_kcal = eat_kcal/rec_cal;
+
+                proBar.setProgress((int)(eat_kcal*100));
+            }
+
+            if(cnt==0 && cnt3 != 0){
+                //Toast.makeText(getApplicationContext(), "HERE", Toast.LENGTH_LONG).show();
+                eat_kcal = Double.parseDouble(cursor.getString(cursor.getColumnIndex(DBHelper3.CAL_COLUMN_KCAL)));
+              //  Toast.makeText(getApplicationContext(), "칼롤린!!"+String.valueOf((int)eat_kcal), Toast.LENGTH_LONG).show();
+                num_hei = Integer.parseInt(str_hei);
+
+                rec_cal=((double)(num_hei/100.0)*(double)(num_hei/100.0)*20.0)*25.0;
+               // Toast.makeText(getApplicationContext(), "칼롤린2222!!"+rec_cal, Toast.LENGTH_LONG).show();
+                eat_kcal = eat_kcal/rec_cal;
+               // Toast.makeText(getApplicationContext(), "칼롤린2222!!"+eat_kcal, Toast.LENGTH_LONG).show();
+
+                proBar.setProgress((int)(eat_kcal*100));
+
+            }
+
+            if(cnt2 > 0) {
+                if(exercise==null){exercise = "0";}
+
+                ProgressBar proBar2 = (ProgressBar)findViewById(R.id.exer_pro);
+                proBar2.setProgress(Integer.parseInt(exercise));
+
+            }
+
+
+        } else{
+            ProgressBar proBar = (ProgressBar)findViewById(R.id.food_pro);
+
+            if(str_hei.length() > 0){
+
+                num_hei = Integer.parseInt(str_hei);
+                myGlobals.set_cal(0.0);
+                proBar.setProgress(0);
+                eat_kcal = myGlobals.get_cal();
+                Toast.makeText(getApplicationContext(), "칼롤린1"+String.valueOf((int)eat_kcal), Toast.LENGTH_LONG).show();
+
+                //권장 칼로리 계산
+                rec_cal=((double)(num_hei/100.0)*(double)(num_hei/100.0)*20.0)*25.0;
+
+
+                //Meal.class에서 가져온 음식 칼로리 가져와서 추가해주기
+                add_kcal = Double.parseDouble(resultKcal);
+                eat_kcal  = eat_kcal + add_kcal;
+                Toast.makeText(getApplicationContext(), "칼롤린2"+String.valueOf((int)eat_kcal), Toast.LENGTH_LONG).show();
+
+                //값을 변경했으니 다시 저장하기
+                myGlobals.set_cal(eat_kcal);
+
+                //prograssbar로 업데이트 해주기
+                //(계산:)오늘 먹어야하는칼로리 / 오늘 먹은칼로리
+
+                eat_kcal = eat_kcal/rec_cal;
+
+                proBar.setProgress((int)(eat_kcal*100));
+
+            }
+
+//            if(cnt > 1){
+//                eat_kcal = myGlobals.get_cal();
+//
+//                add_kcal = Double.parseDouble(resultKcal);
+//                eat_kcal  = eat_kcal + add_kcal;
+//                myGlobals.set_cal(eat_kcal);
+//
+//                eat_kcal = eat_kcal/rec_cal;
+//
+//                proBar.setProgress((int)(eat_kcal*100));
+//
+//
+//            }
+
+            if(cnt2 > 0) {
+                if(exercise==null){exercise = "0";}
+
+                ProgressBar proBar2 = (ProgressBar)findViewById(R.id.exer_pro);
+                proBar2.setProgress(Integer.parseInt(exercise));
+
+            }
 
         }
 
-        if(cnt2 > 0) {
-            if(exercise==null){exercise = "0";}
 
-            ProgressBar proBar2 = (ProgressBar)findViewById(R.id.exer_pro);
-            proBar2.setProgress(Integer.parseInt(exercise));
-
-        }
 
 
     }
+
+
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
             if (resultCode == RESULT_OK) {
             switch (requestCode){
