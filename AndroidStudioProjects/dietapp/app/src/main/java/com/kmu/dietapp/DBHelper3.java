@@ -7,6 +7,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class DBHelper3 extends SQLiteOpenHelper{
     private static final String DATABASE_NAME = "MyDates.db";
     public static final String CAL_COLUMN_KCAL = "kcal";
+    public static final String CAL_COLUMN_EXERCISE = "exercise";
+
 
     private static final int DATABASE_VERSION = 2;
 
@@ -16,7 +18,7 @@ public class DBHelper3 extends SQLiteOpenHelper{
 
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE dates ( _id INTEGER PRIMARY KEY" +
-                " AUTOINCREMENT, date TEXT,kcal TEXT);");
+                " AUTOINCREMENT, date TEXT,kcal TEXT,exercise TEXT);");
 
 
 
