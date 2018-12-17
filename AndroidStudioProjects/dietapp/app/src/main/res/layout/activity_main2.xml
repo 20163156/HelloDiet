@@ -50,8 +50,8 @@
         android:id="@+id/height"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/imageButton5"
         android:layout_below="@+id/body"
+        android:layout_toStartOf="@+id/plus_btn"
         android:text="키(cm)"
         android:textColor="#000000" />
 
@@ -333,61 +333,31 @@
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/plus_btn"
 
         android:layout_alignTop="@+id/textView"
+        android:layout_toStartOf="@+id/goal_weight"
         android:text="저녁"
         android:textStyle="bold" />
 
 
     <ImageButton
-        android:id="@+id/imageButton5"
-        android:layout_width="261dp"
-        android:layout_height="71dp"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/textView"
-        android:layout_marginStart="21dp"
-        android:layout_marginTop="-144dp"
-        app:srcCompat="@drawable/aa" />
-
-    <ImageButton
-        android:id="@+id/imageButton"
-        android:layout_width="261dp"
-        android:layout_height="71dp"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/textView"
-        android:layout_marginStart="21dp"
-        android:layout_marginTop="-144dp"
-        app:srcCompat="@drawable/aa" />
-
-    <ImageButton
         android:id="@+id/plus_btn"
-        android:onClick="changeActivity"
-        android:layout_width="wrap_content"
-        android:layout_height="74dp"
-        android:layout_alignEnd="@+id/edit_hei"
-        android:layout_alignTop="@+id/imageButton5"
-        android:layout_marginEnd="0dp"
-        android:background="#ffffff"
-        app:srcCompat="@drawable/add" />
-
-    <TextView
-        android:id="@+id/info_kcal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignStart="@+id/bre_btn"
-        android:layout_marginBottom="89dp"
-        android:text="배변활동 및 노트"
-        android:textColor="#000000"
-        android:textSize="20dp" />
+        android:layout_alignEnd="@+id/din_btn"
+        android:layout_below="@+id/textView"
+        android:layout_marginTop="-144dp"
+        android:background="#ffffff"
+        android:onClick="changeActivity"
+        app:srcCompat="@drawable/add" />
 
     <TextView
         android:id="@+id/goal_weight"
         android:layout_width="59dp"
-        android:layout_height="wrap_content"
+        android:layout_height="30dp"
+        android:layout_above="@+id/body"
         android:layout_alignParentEnd="true"
-        android:layout_alignTop="@+id/line1"
+        android:layout_marginBottom="-96dp"
         android:textAlignment="textStart" />
 
     <Button
@@ -401,18 +371,35 @@
 
     <Button
         android:id="@+id/pedo_btn"
-        android:layout_width="243dp"
+        android:layout_width="117dp"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="12dp"
-        android:text="만보기" />
+        android:layout_alignStart="@+id/line1"
+        android:layout_marginBottom="11dp"
+        android:background="@drawable/button_background"
+        android:text="운 동 하 기"
+        android:textStyle="bold"
+        android:textColor="#ffffff" />
+
+    <Button
+        android:id="@+id/imageButton5"
+        android:layout_width="261dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/plus_btn"
+        android:layout_toStartOf="@+id/din_btn"
+        android:background="@drawable/button_background"
+        android:textColor="#ffffff"
+        android:text="배 변 활 동  및  노 트"
+        android:textStyle="bold" />
 
     <Button
         android:id="@+id/save_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_below="@+id/plus_btn"
-        android:text="Button" />
+        android:layout_alignTop="@+id/pedo_btn"
+        android:layout_toEndOf="@+id/edit_goal"
+        android:background="@drawable/button_background"
+        android:text="저 장"
+        android:textColor="#ffffff"
+        android:textStyle="bold" />
 </RelativeLayout>

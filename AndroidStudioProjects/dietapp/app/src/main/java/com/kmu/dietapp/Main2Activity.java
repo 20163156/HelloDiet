@@ -29,10 +29,8 @@ class myGlobals{
     static double get_cal(){
         return eat_cal;
     }
-    static void set_cal(double eat_cal){
-        myGlobals.eat_cal = eat_cal;
+    static void set_cal(double eat_cal){ myGlobals.eat_cal = eat_cal; }
 
-    }
     static int get_cnt(){return cnt3;}
     static void set_cnt(int cnt3){myGlobals.cnt3 = cnt3;}
 
@@ -187,9 +185,6 @@ public class Main2Activity extends AppCompatActivity {
         editor1.commit();
         editor2.commit();
         editor3.commit();
-
-
-
 
     }
 

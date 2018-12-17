@@ -5,6 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class DBHelper3 extends SQLiteOpenHelper{
+
     private static final String DATABASE_NAME = "MyDates.db";
     public static final String CAL_COLUMN_KCAL = "kcal";
     public static final String CAL_COLUMN_EXERCISE = "exercise";

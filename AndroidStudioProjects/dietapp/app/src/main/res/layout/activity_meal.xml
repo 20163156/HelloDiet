@@ -52,8 +52,8 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="68dp"
-        android:background="@color/colorPrimary"
-        android:text="등록"
+        android:background="@drawable/button_background"
+        android:text="등 록"
         android:textColor="#ffffff"
         android:onClick="register"
         android:textSize="25dp"
@@ -64,8 +64,8 @@
         android:layout_width="355dp"
         android:layout_height="65dp"
         android:layout_centerInParent="true"
-        android:background="@color/colorPrimary"
-        android:text="음식 칼로리 직접입력+"
+        android:background="@drawable/button_background"
+        android:text="음 식 칼 로 리 직 접 입 력 +"
         android:textColor="#ffffff"
         android:textSize="25dp"
         android:textStyle="bold" />
@@ -82,12 +82,12 @@
 
     <EditText
         android:id="@+id/info_kcal"
-        android:layout_width="198dp"
+        android:layout_width="291dp"
         android:layout_height="59dp"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
+        android:layout_alignStart="@+id/btn_reg"
         android:layout_marginTop="166dp"
-        android:text="" />
+        android:hint="입력한 음식의 칼로리를 확인하세요." />
 
     <CheckBox
         android:id="@+id/checkBox"
