@@ -68,6 +68,17 @@ public class Main2Activity extends AppCompatActivity {
 
         db.execSQL("INSERT INTO dates VALUES (null, '" + dates + "','"+"0"+"','"+"0"+"');");
 
+        Cursor cursor;
+        cursor = db.rawQuery("SELECT * FROM dates WHERE date='" + dates + "';", null);
+        cursor.moveToFirst();
+
+        //날짜가 새로운게 클릭되면
+
+        if(cursor.getCount()==1){
+            myGlobals.set_cnt(0);
+            myGlobals.set_cal(0);
+
+        }
 
         myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
@@ -101,6 +112,7 @@ public class Main2Activity extends AppCompatActivity {
 
 
         //액티비티 전환 코드
+        //칼로리를 입력하는 횟수 -> cnt
         TextView bre_btn = (TextView) findViewById(R.id.bre_btn);
         bre_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -131,6 +143,8 @@ public class Main2Activity extends AppCompatActivity {
             }
         });
 
+        //만보기를 호출하는 횟수 -> cnt2
+
         TextView pedo_btn  = (TextView) findViewById(R.id.pedo_btn);
         pedo_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -140,6 +154,8 @@ public class Main2Activity extends AppCompatActivity {
                 startActivityForResult(intent, 3001);
             }
         });
+
+        //저장버튼을 누르는 횟수 ->cnt3
 
         TextView save_btn  = (TextView) findViewById(R.id.save_btn);
         save_btn.setOnClickListener(new View.OnClickListener() {
@@ -158,9 +174,9 @@ public class Main2Activity extends AppCompatActivity {
 
         super.onStop();
 
+        // 데이타를저장합니다.
         EditText editText1 = (EditText) findViewById(R.id.edit_weight);
         String text1 = editText1.getText().toString();
-        // 데이타를저장합니다.
         SharedPreferences prefs_weight = getSharedPreferences("pref_weight", MODE_PRIVATE);
         SharedPreferences.Editor editor1 = prefs_weight.edit();
         editor1.putString(KEY_MY_PREFERENCE, text1);
@@ -168,7 +184,6 @@ public class Main2Activity extends AppCompatActivity {
 
         EditText editText2 = (EditText) findViewById(R.id.edit_hei);
         String text2 = editText2.getText().toString();
-        // 데이타를저장합니다.
         SharedPreferences prefs_height = getSharedPreferences("pref_height", MODE_PRIVATE);
         SharedPreferences.Editor editor2 = prefs_height.edit();
         editor2.putString(KEY_MY_PREFERENCE, text2);
@@ -176,7 +191,6 @@ public class Main2Activity extends AppCompatActivity {
 
         EditText editText3 = (EditText) findViewById(R.id.edit_goal);
         String text3 = editText3.getText().toString();
-        // 데이타를저장합니다.
         SharedPreferences prefs_goal = getSharedPreferences("pref_goal", MODE_PRIVATE);
         SharedPreferences.Editor editor3 = prefs_goal.edit();
         editor3.putString(KEY_MY_PREFERENCE, text3);
@@ -194,22 +208,22 @@ public class Main2Activity extends AppCompatActivity {
 
     }
 
-    //다른 액티비티를 호출했다가 다시 메인을 호출했을때 실행되는 메소드
     public void onResume() {
         super.onResume();
         double eat_kcal;
         String str_hei = height.getText().toString();
+        ProgressBar proBar = (ProgressBar)findViewById(R.id.food_pro);
 
+        //db에서 dates가 추가되었는지 query문 날리기
         Cursor cursor;
         cursor = db.rawQuery("SELECT * FROM dates WHERE date='" + dates + "';", null);
         cursor.moveToFirst();
 
         if(cursor.getCount()>0){
 
-            ProgressBar proBar = (ProgressBar)findViewById(R.id.food_pro);
+            //ProgressBar proBar = (ProgressBar)findViewById(R.id.food_pro);
             cnt3 = myGlobals.get_cnt();
 
-            //밥 호출 // 저장안함
             if(str_hei.length() > 0 && cnt == 1 && cnt3 == 0){
 
                 num_hei = Integer.parseInt(str_hei);
@@ -241,7 +255,6 @@ public class Main2Activity extends AppCompatActivity {
 
             }
 
-            //밥호출햇고 //저장안햇으면 계속 쌓아줘야되 칼로리를
 
             if(cnt > 1 && cnt3 == 0){
                 eat_kcal = myGlobals.get_cal();
@@ -282,41 +295,43 @@ public class Main2Activity extends AppCompatActivity {
 
 
         }
-        else{
-            ProgressBar proBar = (ProgressBar)findViewById(R.id.food_pro);
-            if(str_hei.length() > 0){
 
-                num_hei = Integer.parseInt(str_hei);
-                myGlobals.set_cal(0.0);
-                proBar.setProgress(0);
-                eat_kcal = myGlobals.get_cal();
+         if(cnt > 1 && cnt3 == 0){
+            eat_kcal = myGlobals.get_cal();
+            add_kcal = Double.parseDouble(resultKcal);
+            eat_kcal  = eat_kcal + add_kcal;
 
-                //권장 칼로리 계산
-                rec_cal=((double)(num_hei/100.0)*(double)(num_hei/100.0)*20.0)*25.0;
+            myGlobals.set_cal(eat_kcal);
 
-                //Meal.class에서 가져온 음식 칼로리 가져와서 추가해주기
-                add_kcal = Double.parseDouble(resultKcal);
-                eat_kcal  = eat_kcal + add_kcal;
+            String sql = "UPDATE dates SET kcal="+eat_kcal+" WHERE date="+dates+"";
+            db.execSQL(sql);
 
-                //값을 변경했으니 다시 저장하기
-                myGlobals.set_cal(eat_kcal);
-                eat_kcal = eat_kcal/rec_cal;
-                proBar.setProgress((int)(eat_kcal*100));
+            eat_kcal = eat_kcal/rec_cal;
 
-            }
+            proBar.setProgress((int)(eat_kcal*100));
+         }
 
-            if(cnt2 > 0) {
-                if(exercise==null){exercise = "0";}
+        else if(cnt==0 && cnt3 != 0){
+            eat_kcal = Double.parseDouble(cursor.getString(cursor.getColumnIndex(DBHelper3.CAL_COLUMN_KCAL)));
+            num_hei = Integer.parseInt(str_hei);
 
-                ProgressBar proBar2 = (ProgressBar)findViewById(R.id.exer_pro);
-                proBar2.setProgress(Integer.parseInt(exercise));
+            rec_cal=((double)(num_hei/100.0)*(double)(num_hei/100.0)*20.0)*25.0;
+            eat_kcal = eat_kcal/rec_cal;
+            proBar.setProgress((int)(eat_kcal*100));
 
-            }
+            exercise = cursor.getString(cursor.getColumnIndex(DBHelper3.CAL_COLUMN_EXERCISE));
+            ProgressBar proBar2 = (ProgressBar)findViewById(R.id.exer_pro);
+            proBar2.setProgress(Integer.parseInt(exercise));
 
         }
 
+        if(cnt2 > 0 && cnt3 == 0) {
+            if(exercise==null){exercise = "0";}
 
+            ProgressBar proBar2 = (ProgressBar)findViewById(R.id.exer_pro);
+            proBar2.setProgress(Integer.parseInt(exercise));
 
+        }
 
     }
 
