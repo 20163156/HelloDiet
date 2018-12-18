@@ -47,6 +47,29 @@ public class DBHelper2 extends SQLiteOpenHelper {
         db.execSQL("INSERT INTO calories VALUES(NULL,'떡볶이','280');");
         db.execSQL("INSERT INTO calories VALUES(NULL,'족발','394');");
         db.execSQL("INSERT INTO calories VALUES(NULL,'생선구이','379');");
+        db.execSQL("INSERT INTO calories VALUES(NULL,'제육볶음','572');");
+        db.execSQL("INSERT INTO calories VALUES(NULL,'짬뽕','764');");
+        db.execSQL("INSERT INTO calories VALUES(NULL,'계란찜','212');");
+        db.execSQL("INSERT INTO calories VALUES(NULL,'콩나물무침','38');");
+        db.execSQL("INSERT INTO calories VALUES(NULL,'청포도','47');");
+        db.execSQL("INSERT INTO calories VALUES(NULL,'소불고기','489');");
+        db.execSQL("INSERT INTO calories VALUES(NULL,'김치볶음밥','446');");
+        db.execSQL("INSERT INTO calories VALUES(NULL,'계란말이','112');");
+        db.execSQL("INSERT INTO calories VALUES(NULL,'돈까스','568');");
+        db.execSQL("INSERT INTO calories VALUES(NULL,'삼겹살','460');");
+        db.execSQL("INSERT INTO calories VALUES(NULL,'계란후라이','89');");
+        db.execSQL("INSERT INTO calories VALUES(NULL,'브로콜리','33');");
+        db.execSQL("INSERT INTO calories VALUES(NULL,'백숙','394');");
+        db.execSQL("INSERT INTO calories VALUES(NULL,'라면','500');");
+        db.execSQL("INSERT INTO calories VALUES(NULL,'삼겹살','460');");
+        db.execSQL("INSERT INTO calories VALUES(NULL,'설렁탕','424');");
+        db.execSQL("INSERT INTO calories VALUES(NULL,'갈비탕','466');");
+        db.execSQL("INSERT INTO calories VALUES(NULL,'소시지야채볶음','151');");
+        db.execSQL("INSERT INTO calories VALUES(NULL,'비빔밥','586');");
+        db.execSQL("INSERT INTO calories VALUES(NULL,'우동','722');");
+
+
+
 
 
 
