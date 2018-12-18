@@ -32,34 +32,24 @@ public class Note extends AppCompatActivity {
         note = edit_note.getText().toString();
 
 
-//        SharedPreferences prefs_note = getSharedPreferences("pref_note", MODE_PRIVATE);
-//        String text = prefs_note.getString(KEY_MY_PREFERENCE, "");
-//        final EditText edit = (EditText) findViewById(R.id.note);
-//        edit.setText(text);
+        SharedPreferences prefs_note = getSharedPreferences("pref_note", MODE_PRIVATE);
+        String text = prefs_note.getString(KEY_MY_PREFERENCE, "");
+        final EditText edit = (EditText) findViewById(R.id.note);
+        edit.setText(text);
 
     }
 
     protected void onStop(){
         super.onStop();
 
-//        EditText editText = (EditText) findViewById(R.id.note);
-//        String text = editText.getText().toString();
-//
-//        // 데이타를저장합니다.
-//        SharedPreferences prefs_note = getSharedPreferences("pref_note", MODE_PRIVATE);
-//        SharedPreferences.Editor editor = prefs_note.edit();
-//        editor.putString(KEY_MY_PREFERENCE, text);
-//
-//        editor.commit();
-        Intent resultIntent = new Intent();
-        resultIntent.putExtra("result",note);
-        setResult(RESULT_OK,resultIntent);
-        finish();
+        EditText editText = (EditText) findViewById(R.id.note);
+        String text = editText.getText().toString();
 
+        // 데이타를저장합니다.
+        SharedPreferences prefs_note = getSharedPreferences("pref_note", MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs_note.edit();
+        editor.putString(KEY_MY_PREFERENCE, text);
 
-    }
-    protected void onResume(){
-        super.onResume();
-        edit_note.setText(note);
+        editor.commit();
     }
 }
