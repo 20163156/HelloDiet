@@ -299,7 +299,7 @@ public class Main2Activity extends AppCompatActivity {
 
         }
 
-         else if(cnt > 1 && cnt3 == 0){
+          if(cnt > 1 && cnt3 == 0){
              rec_cal=((double)(num_hei/100.0)*(double)(num_hei/100.0)*20.0)*25.0;
              eat_kcal = myGlobals.get_cal();
             add_kcal = Double.parseDouble(resultKcal);
@@ -315,7 +315,7 @@ public class Main2Activity extends AppCompatActivity {
             proBar.setProgress((int)(eat_kcal*100));
          }
 
-        else if(cnt==0 && cnt3 != 0){
+         if(cnt==0 && cnt3 != 0){
 
              eat_kcal = Double.parseDouble(cursor.getString(cursor.getColumnIndex(DBHelper3.CAL_COLUMN_KCAL)));
             num_hei = Integer.parseInt(str_hei);
