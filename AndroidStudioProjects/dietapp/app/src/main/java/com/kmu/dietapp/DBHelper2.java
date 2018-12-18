@@ -22,31 +22,31 @@ public class DBHelper2 extends SQLiteOpenHelper {
                         "(id integer primary key,foodname text, kcal text)"
         );
 
-        db.execSQL("INSERT INTO calories VALUES(NULL,'rice','310');");
-        db.execSQL("INSERT INTO calories VALUES(NULL,'americano','4');");
-        db.execSQL("INSERT INTO calories VALUES(NULL,'kimchi','25');");
-        db.execSQL("INSERT INTO calories VALUES(NULL,'dufu','88');");
-        db.execSQL("INSERT INTO calories VALUES(NULL,'apple','130');");
-        db.execSQL("INSERT INTO calories VALUES(NULL,'egg','80');");
-        db.execSQL("INSERT INTO calories VALUES(NULL,'sweetpotato','128');");
-        db.execSQL("INSERT INTO calories VALUES(NULL,'banana','93');");
-        db.execSQL("INSERT INTO calories VALUES(NULL,'strawberry','36');");
-        db.execSQL("INSERT INTO calories VALUES(NULL,'almond','7');");
-        db.execSQL("INSERT INTO calories VALUES(NULL,'beer','74');");
-        db.execSQL("INSERT INTO calories VALUES(NULL,'coke','108');");
-        db.execSQL("INSERT INTO calories VALUES(NULL,'pork and kimchi stew','128');");
-        db.execSQL("INSERT INTO calories VALUES(NULL,'sea mustard soup','83');");
-        db.execSQL("INSERT INTO calories VALUES(NULL,'sweet and sour pork','228');");
-        db.execSQL("INSERT INTO calories VALUES(NULL,'kimbap','318');");
-        db.execSQL("INSERT INTO calories VALUES(NULL,'cucumber','19');");
-        db.execSQL("INSERT INTO calories VALUES(NULL,'bread','111');");
-        db.execSQL("INSERT INTO calories VALUES(NULL,'noodles with black soybean sauce','785');");
-        db.execSQL("INSERT INTO calories VALUES(NULL,'hamburger','270');");
-        db.execSQL("INSERT INTO calories VALUES(NULL,'pizza','404');");
-        db.execSQL("INSERT INTO calories VALUES(NULL,'chiken','249');");
-        db.execSQL("INSERT INTO calories VALUES(NULL,'tteokbokki','280');");
-        db.execSQL("INSERT INTO calories VALUES(NULL,'jokbal','394');");
-        db.execSQL("INSERT INTO calories VALUES(NULL,'grilled fish','379');");
+        db.execSQL("INSERT INTO calories VALUES(NULL,'쌀밥','310');");
+        db.execSQL("INSERT INTO calories VALUES(NULL,'아메리카노','4');");
+        db.execSQL("INSERT INTO calories VALUES(NULL,'김치','25');");
+        db.execSQL("INSERT INTO calories VALUES(NULL,'두부','88');");
+        db.execSQL("INSERT INTO calories VALUES(NULL,'사과','130');");
+        db.execSQL("INSERT INTO calories VALUES(NULL,'계란','80');");
+        db.execSQL("INSERT INTO calories VALUES(NULL,'고구마','128');");
+        db.execSQL("INSERT INTO calories VALUES(NULL,'바나나','93');");
+        db.execSQL("INSERT INTO calories VALUES(NULL,'딸기','36');");
+        db.execSQL("INSERT INTO calories VALUES(NULL,'아몬드','7');");
+        db.execSQL("INSERT INTO calories VALUES(NULL,'맥주','74');");
+        db.execSQL("INSERT INTO calories VALUES(NULL,'콜라','108');");
+        db.execSQL("INSERT INTO calories VALUES(NULL,'돼지고기김치찌개','128');");
+        db.execSQL("INSERT INTO calories VALUES(NULL,'미역국','83');");
+        db.execSQL("INSERT INTO calories VALUES(NULL,'탕수육','228');");
+        db.execSQL("INSERT INTO calories VALUES(NULL,'김밥','318');");
+        db.execSQL("INSERT INTO calories VALUES(NULL,'오이','19');");
+        db.execSQL("INSERT INTO calories VALUES(NULL,'빵','111');");
+        db.execSQL("INSERT INTO calories VALUES(NULL,'짜장면','785');");
+        db.execSQL("INSERT INTO calories VALUES(NULL,'햄버거','270');");
+        db.execSQL("INSERT INTO calories VALUES(NULL,'피자','404');");
+        db.execSQL("INSERT INTO calories VALUES(NULL,'치킨','249');");
+        db.execSQL("INSERT INTO calories VALUES(NULL,'떡볶이','280');");
+        db.execSQL("INSERT INTO calories VALUES(NULL,'족발','394');");
+        db.execSQL("INSERT INTO calories VALUES(NULL,'생선구이','379');");
 
 
 

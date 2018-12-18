@@ -66,7 +66,7 @@ public class Main2Activity extends AppCompatActivity {
         dates = intent.getStringExtra("Date");
 
 
-        db.execSQL("INSERT INTO dates VALUES (null, '" + dates + "','"+"0"+"','"+"0"+"');");
+        db.execSQL("INSERT INTO dates VALUES (null, '" + dates + "','"+"0"+"','"+"0"+"','"+" "+"');");
 
         Cursor cursor;
         cursor = db.rawQuery("SELECT * FROM dates WHERE date='" + dates + "';", null);
@@ -399,7 +399,9 @@ public class Main2Activity extends AppCompatActivity {
 
     public void changeActivity(View view){
         Intent intent = new Intent(Main2Activity.this, Note.class);
-        startActivity(intent);
+        startActivityForResult(intent,3003);
+
+
     }
 
 
