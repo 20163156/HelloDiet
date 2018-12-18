@@ -32,10 +32,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
                 String date = String.valueOf(year)+String.valueOf(month)+String.valueOf(dayOfMonth);
-//                Intent intent = new Intent(
-//                        getApplicationContext(), // 현재 화면의 제어권자
-//                        Main2Activity.class); // 다음 넘어갈 클래스 지정
-//                startActivity(intent);
+
                 Intent intent = new Intent(getApplicationContext(), Main2Activity.class);
                 intent.putExtra("Date",date);
                 startActivity(intent);

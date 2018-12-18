@@ -2,32 +2,14 @@ package com.kmu.dietapp;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Build;
-import android.os.Environment;
-import android.preference.PreferenceManager;
-import android.provider.MediaStore;
-import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Base64;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
-
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.text.SimpleDateFormat;
 
 public class Note extends AppCompatActivity {
 
@@ -52,7 +34,7 @@ public class Note extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                    imageSelect();
+                imageSelect();
             }
 
         });
@@ -65,10 +47,6 @@ public class Note extends AppCompatActivity {
         String text = prefs_note.getString(KEY_MY_PREFERENCE, "");
         final EditText edit = (EditText) findViewById(R.id.note);
         edit.setText(text);
-
-//        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-//        String mImageUri = preferences.getString("image", null);
-//        mImage.setImageURI(Uri.parse(mImageUri));
 
     }
 
@@ -108,15 +86,6 @@ public class Note extends AppCompatActivity {
                 if (data != null) {
 
                     mImageUri = data.getData();
-
-//                    this.grantUriPermission(this.getPackageName(), mImageUri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
-//                    final int takeFlags = Intent.FLAG_GRANT_READ_URI_PERMISSION;
-//                    this.getContentResolver().takePersistableUriPermission(mImageUri, takeFlags);
-//
-//                    SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-//                    SharedPreferences.Editor editor2 = preferences.edit();
-//                    editor2.putString("image", String.valueOf(mImageUri));
-//                    editor2.commit();
 
                     mImage.setImageURI(mImageUri);
                     mImage.invalidate();

@@ -257,6 +257,8 @@ public class Main2Activity extends AppCompatActivity {
 
 
             if(cnt > 1 && cnt3 == 0){
+                rec_cal=((double)(num_hei/100.0)*(double)(num_hei/100.0)*20.0)*25.0;
+
                 eat_kcal = myGlobals.get_cal();
                 add_kcal = Double.parseDouble(resultKcal);
                 eat_kcal  = eat_kcal + add_kcal;
@@ -272,6 +274,7 @@ public class Main2Activity extends AppCompatActivity {
             }
 
             if(cnt==0 && cnt3 != 0){
+
                 eat_kcal = Double.parseDouble(cursor.getString(cursor.getColumnIndex(DBHelper3.CAL_COLUMN_KCAL)));
                 num_hei = Integer.parseInt(str_hei);
 
@@ -296,8 +299,9 @@ public class Main2Activity extends AppCompatActivity {
 
         }
 
-         if(cnt > 1 && cnt3 == 0){
-            eat_kcal = myGlobals.get_cal();
+         else if(cnt > 1 && cnt3 == 0){
+             rec_cal=((double)(num_hei/100.0)*(double)(num_hei/100.0)*20.0)*25.0;
+             eat_kcal = myGlobals.get_cal();
             add_kcal = Double.parseDouble(resultKcal);
             eat_kcal  = eat_kcal + add_kcal;
 
@@ -312,7 +316,8 @@ public class Main2Activity extends AppCompatActivity {
          }
 
         else if(cnt==0 && cnt3 != 0){
-            eat_kcal = Double.parseDouble(cursor.getString(cursor.getColumnIndex(DBHelper3.CAL_COLUMN_KCAL)));
+
+             eat_kcal = Double.parseDouble(cursor.getString(cursor.getColumnIndex(DBHelper3.CAL_COLUMN_KCAL)));
             num_hei = Integer.parseInt(str_hei);
 
             rec_cal=((double)(num_hei/100.0)*(double)(num_hei/100.0)*20.0)*25.0;
